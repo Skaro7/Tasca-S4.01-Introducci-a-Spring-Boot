@@ -1,4 +1,4 @@
-package level1.userapi;
+package userapi;
 
 public record HealthResponse(String status) {
 }

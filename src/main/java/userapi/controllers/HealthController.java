@@ -1,6 +1,6 @@
-package level1.userapi.controllers;
+package userapi.controllers;
 
-import level1.userapi.HealthResponse;
+import userapi.HealthResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
