@@ -15,8 +15,13 @@ public class UserController {
     private static final List<User> users = new ArrayList<>();
 
     @GetMapping
-    public List<User> getUsers() {
-        return users;
+    public List<User> getUsers(@RequestParam(required = false) String name) {
+        if (name == null || name.isBlank()) {
+            return users;
+        }
+        return users.stream()
+                .filter(u -> u.getName().toLowerCase().contains(name.toLowerCase()))
+                .toList();
     }
 
     @PostMapping
