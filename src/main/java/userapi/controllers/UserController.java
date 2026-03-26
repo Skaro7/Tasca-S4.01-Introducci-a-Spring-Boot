@@ -12,7 +12,7 @@ import java.util.UUID;
 @RequestMapping("/users")
 public class UserController {
 
-    private static final List<User> users = new ArrayList<>();
+    public static final List<User> users = new ArrayList<>();
 
     @GetMapping
     public List<User> getUsers(@RequestParam(required = false) String name) {
