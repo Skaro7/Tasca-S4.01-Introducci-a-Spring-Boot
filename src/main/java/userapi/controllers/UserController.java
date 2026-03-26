@@ -1,5 +1,6 @@
 package userapi.controllers;
 
+import userapi.UserNotFoundException;
 import userapi.models.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,5 +24,13 @@ public class UserController {
         User user = new User(UUID.randomUUID(), userRequest.getName(), userRequest.getEmail());
         users.add(user);
         return user;
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable String id) {
+        return users.stream()
+                .filter(u -> u.getId().toString().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 }
