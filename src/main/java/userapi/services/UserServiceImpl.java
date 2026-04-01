@@ -1,6 +1,7 @@
 package userapi.services;
 
 import org.springframework.stereotype.Service;
+import userapi.EmailAlreadyExistsException;
 import userapi.models.User;
 import userapi.repositories.UserRepository;
 
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new EmailAlreadyExistsException(user.getEmail());
+        }
         user.setId(UUID.randomUUID());
         return userRepository.save(user);
     }

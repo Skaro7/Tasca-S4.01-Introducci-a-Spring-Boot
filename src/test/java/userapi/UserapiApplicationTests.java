@@ -1,4 +1,4 @@
-package cat.itacademy.s04.t01.userapi;
+package userapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package cat.itacademy.s04.t01.userapi;
+package userapi;
 
 import userapi.controllers.HealthController;
 import org.junit.jupiter.api.Test;
