@@ -1,10 +1,9 @@
 package userapi.controllers;
 
-import userapi.UserNotFoundException;
-import userapi.models.User;
 import org.springframework.web.bind.annotation.*;
+import userapi.models.User;
+import userapi.services.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,30 +11,27 @@ import java.util.UUID;
 @RequestMapping("/users")
 public class UserController {
 
-    public static final List<User> users = new ArrayList<>();
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public List<User> getUsers(@RequestParam(required = false) String name) {
         if (name == null || name.isBlank()) {
-            return users;
+            return userService.getAllUsers();
         }
-        return users.stream()
-                .filter(u -> u.getName().toLowerCase().contains(name.toLowerCase()))
-                .toList();
+        return userService.getUsersByName(name);
     }
 
     @PostMapping
-    public User createUser(@RequestBody User userRequest) {
-        User user = new User(UUID.randomUUID(), userRequest.getName(), userRequest.getEmail());
-        users.add(user);
-        return user;
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable String id) {
-        return users.stream()
-                .filter(u -> u.getId().toString().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new UserNotFoundException(id));
+        return userService.getUserById(UUID.fromString(id));
     }
 }

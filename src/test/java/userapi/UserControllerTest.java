@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import userapi.controllers.UserController;
 import userapi.models.User;
+import userapi.repositories.InMemoryUserRepository;
 
 import java.util.UUID;
 
@@ -27,9 +27,12 @@ class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private InMemoryUserRepository userRepository;
+
     @BeforeEach
     void setUp() {
-        UserController.users.clear();
+        userRepository.clear();
     }
 
     @Test
